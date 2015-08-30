@@ -4,8 +4,8 @@
 
 Bardzo łatwo mnie zirytować. Narzekam na wiele rzeczy. W świecie technologii jest mnóstwo rzeczy których nie lubię
 i w zasadzie nie ma w tym niczego dziwnego - programowanie jako dziedzina jest śmiesznie młode i nikt z nas nie ma
-bladego pojęcia co robi. Połącz to z [prawem Sturgeona](https://en.wikipedia.org/wiki/Sturgeon%27s_law) i będę miał
-materiału do narzekania na całe życie.
+bladego pojęcia co robi. Połączmy to z [prawem Sturgeona](https://en.wikipedia.org/wiki/Sturgeon%27s_law) i będę miał
+materiał do narzekania przez całe życie.
 
 Ale to nawet nie jest kwestia powyższego. Nie chodzi o to że PHP jest trudny w użyciu, nieprzystowany do tego co jest mi potrzebne,
 nieoptymalny czy niezgodny z moją religią. Mogę wymienić masę dobrych rzeczy o jęzkach programowania których unikam
@@ -16,7 +16,7 @@ wszystkie te elementy są po prostu złe. Cały system jest tak skopany że nie 
 tego stanu. Za każdym razem kiedy próbuję stworzyć listę bzdur w PHP to utykam w trakcie wyszukiwania w głąb odkrywając
 co raz to więcej głupot (stąd fraktal).
 
-PHP to wstyd, to ujma dla mojego zawodu. Jest zepsuty do granic szleństwa a jednocześnie na jego cześć śpiewane są peany przez amatorów którzy w życiu jeszcze nie widzieli niczego innego. Jest marna garść cech które jakkolwiek wynagradzają niedociągnięcia tego języka. W zasadzie to wolałbym w ogóle zapomnieć o jego istnieniu.
+PHP to wstyd, to ujma dla mojego zawodu. Jest zepsuty do granic możliwości a jednocześnie na jego cześć śpiewane są peany przez amatorów którzy w życiu jeszcze nie widzieli niczego innego. Jest marna garść cech które jakkolwiek wynagradzają niedociągnięcia tego języka. W zasadzie to wolałbym w ogóle zapomnieć o jego istnieniu.
 
 Ale muszę to z siebie wyrzucić. Do trzech razy sztuka.
 
@@ -46,3 +46,25 @@ ponieweż bardzo na to nalegała.
 > zapadają się do wewnątrz a cieśla drze się na Ciebie bo zepsułeś mu drzwi.
 >
 > Dokładnie taki jest problem z PHP.
+
+## Teza
+
+Twierdzę, że poniższe własności są *ważne* jeżeli język programowania ma być użyteczny i PHP narusza każdą z nich na
+każdym kroku. Jeżeli nie zgadzasz się że te cechy są krytyczne to nie widzę w jaki sposób mielibyśmy być zgodni na jakikolwiek temat.
+
+* Język musi być **przewidywalny**. Jest to sposób wyrażania ludzkich pomysłów w sposób taki który pozwoli komputerowi
+na wykonanie go. Niezbędne zatem jest żeby człowiek poprawnie interpretował kod źródłowy.
+* Język musi być **spójny**. Podobne rzeczy powinny wyglądać podobnie, różne rzeczy powinny wyglądać różnie. Poznanie części języka powinno służyć zrozumieniu i poznaniu jego reszty.
+* Język musi być **zwięzły**. Nowe języki powstają po to żeby redukować ilość zbędnego kodu obecnego w starych językach (wszysycy *moglibyśmy* pisać kod maszynowy). Zatem język programowania powinien unikać dodawania dodatkowego "bagażu" od siebie.
+* Język musi być **niezawodny*. Języki programowania są narzędziami do rozwiązywania problemów; powinien zatem minimalizować ilość wprowadzanych przez siebie problemów. Jakiekolwiek haczyki rozpraszają uwagę.
+* Język musi dać się **debugować**. Jak coś pójdzie nie tak to programista *musi* to naprawić. A w tym celu potrzebna jest nam każda pomoc jaką możemy otrzymać.
+
+Twierdzę zatem że:
+
+* PHP jest pełen niespodzianek: `mysql_real_escape_string`, `E_ALL`
+* PHP jest niespójny: `strpos`, `str_rot13`
+* PHP wymaga pisania zbędnego kodu: sprawdzanie błędów wokół wywołań z API C, `===`
+* PHP zawiera pełno haczyków: `==`, `for each ($foo as &$bar)`
+* PHP jest czarną skrzynką: stos wywołań nie jest pokazywany domyślnie, złożone raportowanie błędów
+
+Nie będę się rozwodził dlaczego każdy z tych problemów przypada właśnie do tej kategorii bo to by się nie skończyło. Myślenie zostawiam czytelnikowi.
