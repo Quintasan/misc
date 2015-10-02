@@ -68,3 +68,18 @@ Twierdzę zatem że:
 * PHP jest czarną skrzynką: stos wywołań nie jest pokazywany domyślnie, złożone raportowanie błędów
 
 Nie będę się rozwodził dlaczego każdy z tych problemów przypada właśnie do tej kategorii bo to by się nie skończyło. Myślenie zostawiam czytelnikowi.
+
+# Nie wytaczaj poniższych argumentów
+
+Brałem udział w *dużej* ilości dyskusji dotyczących PHP. W ich trakcie miałem okazję usłyszeć wiele ogólnikowych kontrargumentów mających na celu natychmiastowe zakończenie dyskusji. Proszę o nie wytaczanie ich.
+
+* Nie mów mi że "dobry developerzy mogą pisać dobry kod w dowolnym języku" albo że "źli developerzy coś tam". To *nic* nie znaczy. Dobry cieśla *może* wbijać gwoździe kamieniem albo młotkiem ale ilu cieśli machających kamieniami widziałeś? Częścią tego co czyni developera dobrym jest umiejętność *dobrania* odpowiedniego narzędzia
+* Nie mów mi że obowiązkiem developera jest zapamiętnie tysiąca dziwnych wyjątków i dziwnych zachowań. Tak, jest to niezbędne w wielu systemach dlatego ze komputery są głupie. Aczkolwiek nie oznacza to że nie ma górnego limitu na ilość dziwnych zachowań akceptowalnych w systemie. PHP jest niczym tylko wyjątkami i nie jest okej gdy siłowanie się z językiem zajmuje więcej czasu niż pisanie programu. Moje narzędzia nie powinny mi generować dodatkowej pracy.
+* Nie mów mi że "po prostu tak działa API C", po co, u diabła, używać języka wysokiego poziomu jeżeli jedyne co on udostępnia to kilka funkcji pomocnicznych do obsługi ciągów znaków i wrapperów na identyczne funkcje w C? Po prostu pisz w C! Jest nawet [biblioteka CGI](http://www.boutell.com/cgic/) służaca do tego.
+* Nie mów mi "czego się spodziewasz robiąc dziwne rzeczy". Jeżeli istnieję dwie funkcje to w końcu kiedyś ktoś znajdzie powód na to żeby użyć ich ze sobą. Po raz kolejny, to nie jest C; nie ma specyfikacji, nie ma potrzebny na "undefined behaviour".
+* Nie mów mi że Facebook i Wikipedia są napisane w PHP. Zdaję sobie z tego sprawę. Dopóki znajdą się ludzie na tyle sprytni żeby rozwiązać problemy związane z platformą to równie dobrze mogliby je napisać w Brainfucku. Czas pisania tych aplikacji mógłby się podwoić albo skrócić o połowę gdyby pisano je w innym języku. Sam fakt że są napisane w PHP nic nie znaczy.
+* W zasadzie to możesz mi nic mówić. Jeżeli ta lista nie niszczy Twojej opinii o PHP to *nic* jej nie zmieni więc możesz przestać wykłócać się z losowym gościem z internetu i zrobić świetną stronę w rekordowym czasie żeby udowodnić mi że nie mam racji :)
+
+Tak ma marginesie: ubwielbiam Pythona. I mogę na niego narzekać tak długo że odpadną Ci uszy jeżeli bardzo tego pragniesz. Nie twierdzę że jest *perfekcyjny*; po prostu porównałem jego zalety i wady i doszedłem do wniosku że najbardziej pasuje do tego co chcę robić.
+
+I nigdy nie spotkałem developera PHP który byłby w stanie zrobić to samo z PHP. Ale spotkałem dużo developerów którzy bardzo szybko przepraszali za wszystko co PHP robi. Takie nastawienie jest przerażające.
