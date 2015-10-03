@@ -83,3 +83,74 @@ Brałem udział w *dużej* ilości dyskusji dotyczących PHP. W ich trakcie mia�
 Tak ma marginesie: ubwielbiam Pythona. I mogę na niego narzekać tak długo że odpadną Ci uszy jeżeli bardzo tego pragniesz. Nie twierdzę że jest *perfekcyjny*; po prostu porównałem jego zalety i wady i doszedłem do wniosku że najbardziej pasuje do tego co chcę robić.
 
 I nigdy nie spotkałem developera PHP który byłby w stanie zrobić to samo z PHP. Ale spotkałem dużo developerów którzy bardzo szybko przepraszali za wszystko co PHP robi. Takie nastawienie jest przerażające.
+
+## PHP
+
+### U podstaw
+
+CPAN jest nazywany "standardową biblioteką Perla". To nie mówi zbyt wiele o standardowej bibliotece Perla ale z
+pewnością świadczy o tym że na dobrych fundamentach można tworzyć wielkie rzeczy.
+
+#### Filozofia
+
+* PHP został stworzony z myślą o nieprogramistach (co za tym idzie – do nieprogramów); odejście od korzeni nie za bardzo
+  mu się udało. Przytoczmy cytat z dokumentacji [PHP 2.0](http://www.php.net/manual/phpfi2.php#overload) na temat
+  dlaczego `+` i spółka dokonują automatycznej konwersji typów:
+
+  > Tworzenie osobnych operatorów dla każdego z typów czyni język zdecydowanie bardziej złożonym, np. nie możesz użyć
+  > `==` dla ciągów znaków [sic], i musisz użyć `eq`. Nie widzę żadnego powodu żeby to robić, szczególnie w PHP gdzie
+  > większość skryptów jest prosta pisana przez nieprogramistów pragnących niezbyt trudnego języka z
+  > podstawową składnią logiczną.
+
+* PHP jest skonstruowany tak by działać za wszelką cenę. Kiedy wybór przybiera postać "zrób coś bezsensownego" lub
+  "wyrzuć błąd" PHP wybierze to pierwsze. Coś jest lepsze niż nic.
+
+* Nie ma klarownej wizji. Wczesne wersje PHP czerpały z Perla; wielki stdlib jest wzorowany na C a elementy obiektowe
+  przypominają C++ i Javę.
+
+* PHP inspiruje się wieloma językami aczkolwiek w jakiś sposób udaje mu się pozostać niezrozumiałym dla kogokolwiek kto
+  *zna* te języki. `(int)` wygląda jak C ale `int` nie istnieje. Przestrzenie nazw używają `\`. Nowa składnia dla
+  tablicy to `[klucz => wartość]` co praktycznie w każdym innym języku oznacza słownik.
+
+* Słabe typowanie (automatyczna konwersja między liczbami/ciągami znaków/czymkolwiek) jest tak złożone że jakikolwiek
+  wysiłek programistyczny niwelowany przez nią nie jest jej wart.
+
+* Niewielka ilość nowej funkcjonalności jest implementowana jako składnia; większość jest implementowana jako funkcje
+  albo rzeczy które wyglądają jak funkcje. Poza wsparciem dla klas które zasłużyło na garść nowych operatorów i słów
+  kluczowych.
+
+* Niektóre z tych problemów mają rozwiązania od producenta - pod warunkiem że chcesz płacić Zendowi za poprawianie ich
+  własnego języka open-source.
+
+* Wiele rzeczy dzieje się gdzieś daleko od kodu. Rozważmy poniższy kod gdzieś z dokumentacji PHP
+
+  `@fopen('http://example.com/not-existing-file', 'r');`
+
+  Co się stanie?
+
+  * Jeżeli PHP było skompilowane z `--disable-url-fopen-wrapper` to nie zadziała (dokumentacja nie mówi co "nie
+    zadziała" oznacza; zwraca null, rzuca wyjątek?). W PHP 5.2.5 ta flaga została usunięta.
+
+  * Jeżeli `allow_url_fopen` jest wyłączone w php.ini to wciąż nie zadziała (Jak? Nie mam zielonego pojęcia.).
+
+  * Ponieważ użyto `@` ostrzeżenie o nieistniejącym pliku nie zostanie wyświetlone.
+
+  * Ale zostanie wyświetlone jeżeli `scream.enabled` w php.ini jest włączone.
+
+  * Albo jeżeli włączyłeś je przez `ini_set`.
+
+  * Ale nie jeżeli `error_reporting` nie jest ustawione na odpowiednią wartość.
+
+  * Nawet jeżeli *jest* wyświetlanie to gdzie zależy od `display_errors` w php.ini, albo ini_set.
+
+  Nie jestem w stanie powiedzieć jak taka niewinna funkcja będzie zachowywała się bez znajomości flag z którym
+  kompilowano mój interpreter, konfiguracją serwera i konfiguracją mojej aplikacji. A to wszystko to *wbudowane*
+  zachowanie.
+
+* PHP jest pełne globalnych stanów i implicit state. `mbstring` używa globalnego zestawu znaków. `func_get_arg` i spółka
+  wyglądają jak normalne funkcje ale działają w kontekście obecnie wywoływanej funkcji. Obsługa błędów/wyjątków ma
+  globalne ustawienia domyślne. `register_tick_function` ustawia globalną funkcję która wywoływana jest z każdym
+  tickiem - że co?!
+
+* Nie ma absolutnie żadnego wsparcia dla wątków (nic dziwnego biorąc pod uwagę powyższe) co połączone z brakiem
+  wbudowanego `fork` (o czym później) czyni programowanie równoległe ekstremalnie trudnym.
