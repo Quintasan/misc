@@ -154,3 +154,40 @@ pewnością świadczy o tym że na dobrych fundamentach można tworzyć wielkie 
 
 * Nie ma absolutnie żadnego wsparcia dla wątków (nic dziwnego biorąc pod uwagę powyższe) co połączone z brakiem
   wbudowanego `fork` (o czym później) czyni programowanie równoległe ekstremalnie trudnym.
+
+* Niektóre elementy PHP są praktycznie *zaprojektowane* tak żeby tworzyły kod podatny na błędy:
+
+  * `json_decode` zwraca null dla nieprawidłowego wejścia mimo tego że null jest całkowicie poprawnym wynikiem
+    dekodowania JSON-a. Funkcja ta jest całkowicie zawodna dopóki nie wywołujesz `json_last_error` za każdym razem kiedy
+    jej używasz.
+
+  * `array_search`, `strpos` i inne podobne funkcje zwracają `0` jeżeli znajdą igłę na pozycji 0 ale zwracają fałsz
+    jeżeli w ogóle go nie znajdą.
+
+    Pozwól że rozwinę nieco ostatni element.
+
+    W C, funkcje typu `strpos` zwracają `-1` jeżeli element nie został znaleziony. Jeżeli nie sprawdzisz tego warunku i
+    spróbujesz użyć tego jako indeksu to trafisz w jakiś region pamięci i Twój program eksploduje (Prawdopodobnie. To w
+    końcu C więc diabli wiedzą aczkolwiek jestem pewien że są do tego narzędzia).
+
+    Pythonowy odpowiednik – `.index` wyrzuci wyjątek jeżeli dany element nie zostanie znaleziony. Jak nie sprawdzisz
+    tego warunku to Twój program również eksploduje.
+
+    Ale w PHP te funkcje zwracają fałsz. Jeżeli użyjesz `FALSE` jako indeksu albo zrobisz z nim cokolwiek innego za
+    wyjątkiem porównania przez `===` to PHP po cichu rzutuje to na `0`. Twój program nie wybuchnie. Zamiast tego zrobi
+    jakąś *durną* rzecz bez kompletnie *żadnego ostrzeżenia* dopóki nie będziesz pamiętał o opakowaniu każdego wywołania
+    `strpos` w zbędną logikę.
+
+    To jest złe! Języki programowania są narzędziami – powinny ze mną *współpracować*. Natomiast w tym przypadku PHP
+    aktywnie zastawia na mnie płuapkę w którą mogę wpaść gdy nie zachowuję czujności nawet przy tak banalnych czynności
+    jak operacje na ciągach znaków i porównywanie. PHP to *pole minowe*.
+
+Słyszałem wiele historii na temat interpretera PHP i [jego twórców](http://en.wikiquote.org/wiki/Rasmus_Lerdorf) z wielu
+różnych źródeł. Pochodzą one od ludzi którzy pracowali nad [jądrem PHP](http://www.reddit.com/r/lolphp/comments/qeq7k/php_540_ships_with_82_failing_tests_in_the_suite/), [debugowali jądro PHP](http://perlbuzz.com/2008/09/optimizing-for-the-developer-not-the-user-php-misses-again.html), obcowali z twórcami jądra PHP. Żadna z tych opowieści nie jest pochlebna.
+
+Muszę więc to tutaj napisać bo trzeba to podkreślić: PHP jest społecznością amatorów. Niewiele ludzi projektujących go,
+pracujących nad nim lub piszących w nim kod ma w ogóle pojęcie co robi (Ty, drogi czytelniku oczywiście jesteś rzadkim
+wyjątkiem!). Ci którzy w końcu zaczynają *coś* rozumieć ochodzą w kierunku innych platform, efektywnie redukując średni
+poziom pozostałych. I to właśnie to jest największy problem PHP: ślepi wiodący ślepych.
+
+Dobra, wracamy do konkretów.
