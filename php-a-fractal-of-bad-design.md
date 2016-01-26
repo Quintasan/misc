@@ -191,3 +191,17 @@ wyjątkiem!). Ci którzy w końcu zaczynają *coś* rozumieć ochodzą w kierunk
 poziom pozostałych. I to właśnie to jest największy problem PHP: ślepi wiodący ślepych.
 
 Dobra, wracamy do konkretów.
+
+#### Operatory
+
+* `==` jest bezużyteczne.
+  * `==` nie jest przechodnie. `"foo" == TRUE`, i `"foo" == 0` ale oczywiście `TRUE != 0`
+  * `==` dokonuje konwersji do liczb gdziekolwiek możliwe (`123 == "123foo"` aczkolwiek `"123" != "123foo"`),
+    to z kolei oznacza że dokonuje konwersji na float gdzie tylko jest to możliwe. Co za tym idzie duże ciągi heksadecymalne
+    (np. zahashowane hasła) podczas porównywania mogą [zwrócić true gdy nie jest to prawdą](http://phpsadness.com/sad/47).
+    Nawet JavaScript nie robi takich cudów.
+  * Z tej samej przyczyny `"6" == " 6"`, `"4.2" == "4.20"` oraz `"133" == "0133"`. Oczywiście ostatnie jest bzdurą
+    ponieważ `0133` oznacza liczbę w systemie ósemkowym. Ale z kolei `"0x10" == "16"` i `"1e3" == "1000"`.
+  * `===` porównuje wartości i typy... chyba że mamy do czynienia z obiektami. W tym przypadku `===` zwróci true wtedy
+    i tylko wtedy gdy oba argumenty są tymi samymi obiektami! W przypadku obiektów `==` porównuje zarówno wartość
+    każdego atrybutu jak i typ. Jest to dokładnie to co `===` robi dla wszystkich innych typów. [Że co.](http://developers.slashdot.org/comments.pl?sid=204433&cid=16703529)
