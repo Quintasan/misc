@@ -205,3 +205,8 @@ Dobra, wracamy do konkretów.
   * `===` porównuje wartości i typy... chyba że mamy do czynienia z obiektami. W tym przypadku `===` zwróci true wtedy
     i tylko wtedy gdy oba argumenty są tymi samymi obiektami! W przypadku obiektów `==` porównuje zarówno wartość
     każdego atrybutu jak i typ. Jest to dokładnie to co `===` robi dla wszystkich innych typów. [Że co.](http://developers.slashdot.org/comments.pl?sid=204433&cid=16703529)
+* Porównywanie wcale nie działa lepiej.
+  * Totalny brak konsekwencji: `NULL < -1`, *i* `NULL == 0`. Przez to sortowanie jest niedeterministyczne; wynik sortowania zależy od kolejności w której algorytm sortujący porównuje elementy.
+  * Operatory porównania próbują posortować tablice na dwa sposoby: ze względu na długość a potem ze względu na elementy. Jeżeli mają *taką samą ilość* elementów ale *inny* zestaw kluczy to są nieporównywalne.
+  * Obiekty są zawsze większe od wszyskiego... chyba że mówimy o innym obiekcie, wtedy nie jest on ani mniejszy ani większy.
+  * Bardziej bezpieczną wersją `==` jest `===`. Dla operatora `<` mamy... nic. `"123" < "0123"`. Zawsze. Rzutowanie również nie pomaga.
