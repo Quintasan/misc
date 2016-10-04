@@ -3,8 +3,7 @@ require "nokogiri"
 require "open-uri"
 require "pry"
 
-#URL = "http://www.merriam-webster.com/word-of-the-day"
-URL = "http://www.merriam-webster.com/word-of-the-day/mettle-2016-09-23"
+URL = "http://www.merriam-webster.com/word-of-the-day"
 
 doc = Nokogiri::HTML(open(URL))
 
